@@ -153,7 +153,6 @@ public class OpenAddressingHashMap implements Map {
      * @return new array with rehashed {@link Node}s
      */
     private Node[] rehash(Node[] arr, int newArrayCapacity){
-        System.out.println(newArrayCapacity);
         Node[] newArray = new Node[newArrayCapacity];
         size = 0;
 
