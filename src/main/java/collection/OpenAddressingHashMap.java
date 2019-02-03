@@ -4,6 +4,7 @@ import java.util.Objects;
 
 /**
  * This class implements the {@link Map} interface.
+ * Maps int keys to long values.
  */
 public class OpenAddressingHashMap implements Map {
 
@@ -58,20 +59,20 @@ public class OpenAddressingHashMap implements Map {
 
         int hash = calculateIndex(key, arr);
 
-        //Checks if there is a node in arrays' bucket
+        //Checks if there is a node in arrays' bin
         returnValue = returnValueIfExists(hash, arr);
 
-        //if arrays' bucket is clear
+        //If arrays' bin is clear
         if (Objects.isNull(returnValue)) {
-            //checks if resize is needed before putting new pair
+            //Checks if resize is needed before putting new node
             if (isResizeNeeded()) {
-                arr = rehash(arr, ((int) (arr.length * 1.5)));
+                array = rehash(arr, ((int) (arr.length * 1.5)));
             }
 
             arr[hash] = new Node(hash, key, value);
             size++;
         } else {
-            //Rewrite new value to contained key
+            //Rewriting new value to contained key
             arr[hash].value = value;
         }
 
@@ -79,16 +80,16 @@ public class OpenAddressingHashMap implements Map {
     }
 
     /**
-     * Finds arrays' bucket to store new {@link Node}. Uses linear probing with step = 1.
+     * Finds arrays' bin to store new {@link Node}. Uses linear probing with step = 1.
      *
      * @param key key with which the specified value is to be associated
-     * @param arr array to find proper bucket for
+     * @param arr array to find proper bin for
      * @return index of array to store a {@link Node}
      */
     private int calculateIndex(int key, Node[] arr){
         int hash = hash(key, arr.length);
 
-        //Checks every buckets from starting one while one is empty or has same key
+        //Checks calculated bins until one is empty or has the same key
         while (!Objects.isNull(arr[hash]) && arr[hash].key != key){
             hash = ++hash % arr.length;
         }
@@ -152,6 +153,7 @@ public class OpenAddressingHashMap implements Map {
      * @return new array with rehashed {@link Node}s
      */
     private Node[] rehash(Node[] arr, int newArrayCapacity){
+        System.out.println(newArrayCapacity);
         Node[] newArray = new Node[newArrayCapacity];
         size = 0;
 

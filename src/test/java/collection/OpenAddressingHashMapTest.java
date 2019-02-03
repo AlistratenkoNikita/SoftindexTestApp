@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 
 public class OpenAddressingHashMapTest {
 
-    Map map = new OpenAddressingHashMap();
+    private Map map = new OpenAddressingHashMap();
 
     @Test
     public void defaultPutTest() {
